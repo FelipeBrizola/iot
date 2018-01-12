@@ -1,0 +1,29 @@
+{
+    "name": "iot",
+    "description": "iot",
+    "version": "0.1.0",
+    "author": {
+      "name": "Felipe Brizola",
+      "email": "felipe_brizola@hotmail.com",
+      "url": "https://github.com/felipebrizola"
+    },
+    "engines": {
+      "node": "6.9.4"
+    },
+    "license": "Apache-2.0",
+    "private": true,
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js",
+      "test": "eslint . --ext .js"
+    },
+    "dependencies": {
+      "boom": "^4.2.0",
+      "eslint": "^3.8.0",
+      "eslint-plugin-promise": "^3.4.2",
+      "eslint-plugin-standard": "^2.0.1",
+      "joi": "^10.1.0",
+      "mongodb": "^2.2.33"
+    }
+  }
+  

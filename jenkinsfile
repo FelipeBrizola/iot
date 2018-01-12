@@ -1,0 +1,35 @@
+
+
+node {
+
+    try {
+
+        stage('checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/FelipeBrizola/iot']]])
+        }
+
+        stage('build') {
+            echo 'Build app'
+            sh 'npm install'
+        }
+
+        stage('test') {
+            echo 'Test app'
+            sh 'npm test'
+        }
+
+        stage('deploy') {
+            echo 'Deploy app'
+        }
+
+        stage('notify') {
+            step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'felipe_brizola@hotmail.com', sendToIndividuals: false])
+        }
+
+    }
+    catch (e) {
+
+        echo 'Error'
+        throw e
+    }
+}

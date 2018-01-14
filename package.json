@@ -14,7 +14,7 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "nodejs server.js",
+    "start": "node server.js",
     "test": "eslint . --ext .js"
   },
   "dependencies": {

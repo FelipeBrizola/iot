@@ -1,9 +1,8 @@
 let express = require('express'),
-    app = express(),
-    server;
+    app = express();
 
 app.get('/', (req, res) => {
     res.send('Heeey');
 });
 
-server = app.listen(3000);
+app.listen(3000);

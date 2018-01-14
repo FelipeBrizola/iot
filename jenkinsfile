@@ -9,20 +9,21 @@ node {
         }
 
         stage('build') {
-            echo 'Build app'
+            echo 'BUILDING APP'
             sh 'npm install'
         }
 
         stage('test') {
-            echo 'Test app'
+            echo 'TESTING APP'
             sh 'npm test'
         }
 
         stage('deploy') {
-            echo 'Deploy app'
+            echo 'DEPLOYING APP'
         }
 
         stage('notify') {
+            echo 'SEND EMAILS'
             step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'felipe_brizola@hotmail.com', sendToIndividuals: false])
         }
 

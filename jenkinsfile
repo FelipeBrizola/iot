@@ -22,6 +22,8 @@ node {
 
         stage('deploy') {
             echo 'DEPLOYING APP'
+            build '/iot-deploy'
+            echo 'DEPLOYING APP - DONE'
         }
 
         stage('notify') {

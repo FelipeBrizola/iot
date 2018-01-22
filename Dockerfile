@@ -1,5 +1,5 @@
 FROM mhart/alpine-node:6
-WORKDIR /server
+WORKDIR /home/briza/iot
 COPY . .
 RUN npm install
 EXPOSE 3000

@@ -13,7 +13,7 @@ node {
         sh 'pwd'
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        dir ('build/docker') {
+        dir ('/var/lib/docker/volumes/jenkins_home/_data/workspace') {
             echo 'after'
             sh 'ls -la'
             sh 'pwd'

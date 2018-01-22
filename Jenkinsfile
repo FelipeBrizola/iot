@@ -1,42 +1,36 @@
-
-
 node {
+    def app
 
-    try {
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
 
-        stage('checkout') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/FelipeBrizola/iot']]])
-        }
-
-        stage('build') {
-            echo 'BUILDING APP'
-            sh 'npm install'
-            echo 'BUILDING DONE'
-        }
-
-        stage('test') {
-            echo 'TESTING APP'
-            sh 'npm test'
-            echo 'TESTING APP - DONE'
-        }
-
-        stage('deploy') {
-            echo 'DEPLOYING APP'
-            build '/iot-deploy'
-            echo 'DEPLOYING APP - DONE'
-        }
-
-        stage('notify') {
-            echo 'SEND EMAILS'
-            step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'felipe_brizola@hotmail.com', sendToIndividuals: false])
-            echo 'SEND EMAILS - DONE'
-        }
-
+        checkout scm
     }
-    catch (e) {
 
-        echo 'ERROR'
-        echo e
-        throw e
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("getintodevops/hellonode")
+    }
+
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
+
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'felipebrizola') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
     }
 }

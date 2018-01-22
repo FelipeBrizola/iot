@@ -8,10 +8,17 @@ node {
     }
 
     stage('Build image') {
+        echo 'before'
+        sh 'ls -la'
+        sh 'pwd'
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
-        app = docker.build("getintodevops-hellonode")
+        dir ('build/docker') {
+            echo 'after'
+            sh 'ls -la'
+            sh 'pwd'
+            app = docker.build("getintodevops-hellonode")
+        }
     }
 
     stage('Test image') {

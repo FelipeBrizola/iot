@@ -23,7 +23,7 @@ node {
         }
 
         stage('Deploy') {
-            sh 'docker run -it -p 3000:3000 felipebrizola/alias'
+            sh 'deploy.sh'
         }
     }
 

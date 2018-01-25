@@ -1,5 +1,5 @@
 FROM node:6
-RUN npm install -g pm2 && npm install
+RUN npm install -g pm2
 WORKDIR /server
 COPY . .
 EXPOSE 3000

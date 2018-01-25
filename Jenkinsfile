@@ -5,6 +5,9 @@ node {
 
         stage('Build image') {
             checkout scm
+
+            sh 'npm install'
+
             app = docker.build("felipebrizola/alias")
 
             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
@@ -15,7 +18,12 @@ node {
             sh 'npm test'
         }
 
-      
+        stage('Test Image') {
+
+            app.inside {
+                sh 'echo "Tests passed"'
+            }
+        }
 
         stage('Deploy') {
             sh './deploy.sh'

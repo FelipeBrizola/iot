@@ -15,7 +15,6 @@ node {
                 app.push("latest")
             }
 
-            sh 'npm test'
         }
 
         stage('Test Image') {

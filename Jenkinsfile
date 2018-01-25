@@ -1,31 +1,37 @@
 node {
     def app
 
-    stage('Clone repository') {
+    try {
 
-        checkout scm
-    }
+        stage('Build image') {
+            checkout scm
+            app = docker.build("felipebrizola/alias")
 
-    stage('Build image') {
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                app.push("${env.BUILD_NUMBER}")
+                app.push("latest")
+            }
 
-        app = docker.build("felipebrizola/alias")
-    }
+            sh 'npm test'
+        }
 
-    stage('Test image') {
+        stage('Deploy') {
 
-        app.inside {
-            sh 'echo "Tests passed"'
+            app.inside {
+                sh 'echo "Tests passed"'
+            }
+        }
+
+        stage('Deploy') {
+            sh 'docker run -it -p 3000:3000 felipebrizola/alias'
         }
     }
 
-    stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+    catch (e) {
+
+        echo 'ERROR'
+        echo e
+        throw e
     }
 
-    stage('deploy') {
-        build '/iot-deploy'
-    }
 }

@@ -15,12 +15,7 @@ node {
             sh 'npm test'
         }
 
-        stage('Test Image') {
-
-            app.inside {
-                sh 'echo "Tests passed"'
-            }
-        }
+      
 
         stage('Deploy') {
             sh './deploy.sh'

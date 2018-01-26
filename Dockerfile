@@ -3,4 +3,4 @@ RUN npm install -g pm2 && npm install
 WORKDIR /server
 COPY . .
 EXPOSE 3000
-CMD [ "pm2", "start", "server.js" ]
+RUN pm2 start server.js

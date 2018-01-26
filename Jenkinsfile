@@ -25,7 +25,7 @@ node {
         }
 
         stage('Deploy') {
-            sh './deploy.sh'
+            build '/deploy-station'
         }
     }
 

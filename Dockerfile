@@ -1,6 +1,6 @@
 FROM node:6
-RUN npm install -g pm2 && npm install
 WORKDIR /server
 COPY . .
+RUN npm install
 EXPOSE 3000
-RUN pm2 start server.js
+CMD ["npm", "start"]

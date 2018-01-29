@@ -26,10 +26,9 @@ node {
 
         stage('Deploy') {
             docker.withServer('tcp://104.41.29.178:2376', 'station-credentials') {
-                sh 'echo "INSIDE!"'
-                sh 'ls -la'
-                sh 'pwd'
-                def container = app.run('-p 3000:3000 -d')
+                docker.image('felipebrizola/alias').withRun('-p 3000:3000') {
+                    sh 'echo "Tests passed!!!!"'
+                }
             }
         }
     }

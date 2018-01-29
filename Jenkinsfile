@@ -25,7 +25,7 @@ node {
         }
 
         stage('Deploy') {
-            docker.withServer('tcp://104.41.29.178:22', 'station-credentials') {
+            docker.withServer('tcp://104.41.29.178:2376', 'station-credentials') {
                 docker.image('felipebrizola/alias:latest').withRun('-p 3000:3000') {
                     sh 'echo "RUN"'
                 }

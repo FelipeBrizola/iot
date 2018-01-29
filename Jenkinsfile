@@ -27,6 +27,8 @@ node {
         stage('Deploy') {
             docker.withServer('tcp://104.41.29.178:2376', 'station-credentials') {
                 sh 'echo "INSIDE!"'
+                sh 'ls -la'
+                sh 'pwd'
                 app.run('-p 3000:3000 -d')
             }
         }

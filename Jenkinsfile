@@ -29,7 +29,7 @@ node {
                 sh 'echo "INSIDE!"'
                 sh 'ls -la'
                 sh 'pwd'
-                app.run('-p 3000:3000 -d')
+                def container = app.run('-p 3000:3000 -d')
             }
         }
     }

@@ -3,7 +3,7 @@ let express = require('express'),
 
 app.get('/', (req, res) => {
     res.send('xala 2');
-    console.log('b')
+  console.log('c');
 });
 
 app.listen(3000);

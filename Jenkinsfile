@@ -3,7 +3,7 @@ node {
 
     try {
 
-        tools {nodejs “node-6.14.4”}
+        tools {nodejs “node”}
         
         stage('Build image') {
             checkout scm

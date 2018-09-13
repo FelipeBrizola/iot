@@ -4,6 +4,9 @@ pipeline {
         dockerfile true
     }
     
+    def customImage = docker.build("my-image:${env.BUILD_ID}")
+    def dockername = "my-image:${env.BUILD_ID}"
+
     environment {
         CI = 'true'
     }
@@ -20,10 +23,9 @@ pipeline {
         }
         stage('Deliver for production') {
 
-            def customImage = docker.build("my-image:${env.BUILD_ID}")
-            def dockername = "my-image:${env.BUILD_ID}"
+            
 
-         
+            steps {   
                 
                 sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
@@ -37,7 +39,7 @@ pipeline {
 
                     sh "docker run -i -t ${dockername}-golden /bin/bash"
 
-                
+                }
 
             }
         }

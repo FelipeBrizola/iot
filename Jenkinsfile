@@ -21,13 +21,13 @@ pipeline {
         stage('Deliver for production') {
             when {
                 branch 'master' 
-            }
-            steps {
-                sshagent(['903d2e8e-6358-4415-b2d6-2cc614822a92']) {
-                    sh "scp $WORKSPACE/iot felipe@gustavolaux:/home/felipe"
+                steps {
+                    sshagent(['903d2e8e-6358-4415-b2d6-2cc614822a92']) {
+                        sh "scp $WORKSPACE/iot felipe@gustavolaux:/home/felipe"
+                    }
                 }
-
             }
+
         }
     }
 }

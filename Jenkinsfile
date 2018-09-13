@@ -43,6 +43,10 @@ pipeline {
 
                         sh "pwd"
 
+                        sh "ssh felipe@gustavolaux.com.br" 
+
+                        sh "pwd"
+
                         sh "tar -xzvf my-image:$env.BUILD_ID-golden.tar.gz"
 
                         sh "sudo docker load my-image:$env.BUILD_ID-golden"

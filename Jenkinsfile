@@ -19,11 +19,11 @@ pipeline {
             }
         }
         stage('Deliver for production') {
-            
-            steps {
 
-                def customImage = docker.build("my-image:${env.BUILD_ID}")
-                def dockername = "my-image:${env.BUILD_ID}"
+            def customImage = docker.build("my-image:${env.BUILD_ID}")
+            def dockername = "my-image:${env.BUILD_ID}"
+
+            steps {   
                 
                 sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 

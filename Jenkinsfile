@@ -3,7 +3,7 @@ node {
 
     try {
 
-        tools {nodejs “node”}
+        
         
         stage('Build image') {
             checkout scm

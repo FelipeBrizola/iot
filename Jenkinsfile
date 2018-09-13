@@ -37,7 +37,7 @@ pipeline {
 
                         sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
 
-                        sh "gzip -d < my-image:$env.BUILD_ID-golden.tar.gz | tar xvf -"
+                        sh "tar -xzvf my-image:$env.BUILD_ID-golden.tar.gz"
 
                         sh "sudo docker load my-image:$env.BUILD_ID-golden"
 

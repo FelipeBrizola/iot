@@ -35,6 +35,8 @@ pipeline {
 
                         sh "pwd"
 
+                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"                    
+
                         sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
 
                         sh "pwd"
@@ -42,8 +44,6 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br tar -xzvf my-image:$env.BUILD_ID-golden.tar.gz"
 
                         sh "pwd"
-
-                        sh "tar -xzvf my-image:$env.BUILD_ID-golden.tar.gz"
 
                         sh "sudo docker load my-image:$env.BUILD_ID-golden"
 

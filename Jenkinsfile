@@ -24,17 +24,17 @@ pipeline {
         }
         stage('Deliver for production') {
 
-            
-
-            steps {   
-               
-                    sh "docker save my-image:$env.BUILD_ID -o myimage"
+            sh "docker save my-image:$env.BUILD_ID -o myimage"
 
                     sh "tar czv my-image:$env.BUILD_ID-golden.tar.gz myimage"
 
                     sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
 
                     sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"
+
+            steps {   
+               
+                    
 
                     sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 

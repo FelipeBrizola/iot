@@ -31,13 +31,13 @@ pipeline {
 
                     sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
-                        sh "docker save my-image:$env.BUILD_ID -o myimage"
+                        sh "sudo docker save my-image:$env.BUILD_ID -o myimage"
 
                         sh "tar czv my-image:$env.BUILD_ID-golden.tar.gz myimage"
 
-                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"                    
-
                         sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
+
+                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"
 
                         sh "tar -xzvf my-image:$env.BUILD_ID-golden.tar.gz"
 

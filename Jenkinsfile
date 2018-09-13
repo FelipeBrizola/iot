@@ -3,6 +3,7 @@ node {
 
     try {
 
+        pipeline {
         agent { dockerfile true }
         
         stage('Build image') {
@@ -33,6 +34,9 @@ node {
                 }
             }
         }
+        }
+        
+        
     }
 
     catch (e) {

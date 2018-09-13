@@ -3,7 +3,7 @@ node {
 
     try {
 
-        
+        agent { dockerfile true }
         
         stage('Build image') {
             checkout scm

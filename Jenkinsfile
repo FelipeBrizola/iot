@@ -1,3 +1,4 @@
+    node {
 pipeline {
     
     agent {
@@ -8,7 +9,7 @@ pipeline {
     environment {
         CI = 'true'
     }
-    node {
+
     stages {
 
         stage('Build') {

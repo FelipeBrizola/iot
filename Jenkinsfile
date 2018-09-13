@@ -21,9 +21,7 @@ pipeline {
         stage('Deliver for production') {
             
             steps {
-                sshagent(['903d2e8e-6358-4415-b2d6-2cc614822a92']) {
-                    sh 'ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime'
-                    sh 'ssh -v felipe@gustavolaux.com.br'
+                sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
                     sh "scp $WORKSPACE/iot felipe@gustavolaux.com.br:/home/felipe"
                 }
 

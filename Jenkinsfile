@@ -39,7 +39,7 @@ pipeline {
 
                         sh 'ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br "docker load < abc.tar.gz" '
 
-                        sh "ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br docker run -it alpine:latest /bin/sh"
+                        sh 'ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br "docker run  alpine:latest" '
 
                     }
                 }

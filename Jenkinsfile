@@ -31,7 +31,7 @@ pipeline {
 
                     sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
-                        sh "docker save alpine:$env.BUILD_ID | gzip > alpine:$env.BUILD_ID-golden.tar.gz"                      
+                        sh ' "docker save alpine:$env.BUILD_ID" | "gzip > alpine:$env.BUILD_ID-golden.tar.gz" '
 
                         sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime" 
 

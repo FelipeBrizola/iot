@@ -31,7 +31,13 @@ pipeline {
 
                     sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
+                        sh 'pwd'
+                        sh 'ls -la'
+
                         sh "docker save my-image:$env.BUILD_ID | ssh -o StrictHostKeyChecking=no -C felipe@gustavolaux.com.br sudo docker load"
+
+                        sh 'pwd'
+                        sh 'ls -la'
 
                         // sh "docker save my-image:$env.BUILD_ID | gzip > my-image:$env.BUILD_ID-golden.tar.gz"
 

@@ -31,31 +31,19 @@ pipeline {
 
                     sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
-                        sh 'pwd'
-                        sh 'ls -la'
+                        sh "docker save my-image:$env.BUILD_ID | gzip > my-image:$env.BUILD_ID-golden.tar.gz"                      
 
-                        sh "docker save my-image:$env.BUILD_ID | ssh -o StrictHostKeyChecking=no -C felipe@gustavolaux.com.br sudo docker load"
+                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"                    
 
-                        sh 'pwd'
-                        sh 'ls -la'
+                        sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
+                      
 
-                        // sh "docker save my-image:$env.BUILD_ID | gzip > my-image:$env.BUILD_ID-golden.tar.gz"
+                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br"
 
-                        // sh "pwd"
 
-                        // sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"                    
+                        sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz"
 
-                        // sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
-
-                        // sh "pwd"
-
-                        // sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br tar -xzvf my-image:$env.BUILD_ID-golden.tar.gz"
-
-                        // sh "pwd"
-
-                        // sh "sudo docker load my-image:$env.BUILD_ID-golden"
-
-                        // sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash"
+                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash"
 
                     }
                 }

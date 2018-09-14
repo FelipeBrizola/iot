@@ -37,17 +37,13 @@ pipeline {
 
                         sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"  
 
-                    }
+                        sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz | ssh felipe@gustavolaux.com.br uptime"
 
-                    sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
+                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash | ssh felipe@gustavolaux.com.br uptime"
 
-                        sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz | ssh felipe@gustavolaux.com.br"
-
-                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash | ssh felipe@gustavolaux.com.br"
 
                     }
                 }
-            
         }
     }
 }

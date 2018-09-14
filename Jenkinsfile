@@ -33,13 +33,11 @@ pipeline {
 
                         sh "docker save alpine:$env.BUILD_ID | gzip > alpine:$env.BUILD_ID-golden.tar.gz"                      
 
-                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"                    
-
                         sh "scp $WORKSPACE/alpine:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"  
 
-                        sh "ssh -t felipe@gustavolaux.com.br docker load < alpine:$env.BUILD_ID-golden.tar.gz"
+                        sh "ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br docker load < alpine:$env.BUILD_ID-golden.tar.gz"
 
-                        sh "ssh -t felipe@gustavolaux.com.br docker run -it alpine:latest /bin/sh"
+                        sh "ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br docker run -it alpine:latest /bin/sh"
 
                     }
                 }

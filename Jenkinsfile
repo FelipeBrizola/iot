@@ -35,16 +35,17 @@ pipeline {
 
                         sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"                    
 
-                        sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"
-                    
-                        sh "ls -la"
-                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"
-                        sh "ls -la"
+                        sh "scp $WORKSPACE/my-image:$env.BUILD_ID-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"  
+
+                    }
+
+                    sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
                         sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"
-                        sh "sudo docker load < my-image:54-golden.tar.gz"
 
-                        sh "sudo docker run -i -t my-image:54-golden /bin/bash"
+                        sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz"
+
+                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash"
 
                     }
                 }
@@ -53,3 +54,4 @@ pipeline {
         }
     }
 }
+

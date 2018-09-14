@@ -39,8 +39,7 @@ pipeline {
 
                         sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz | ssh felipe@gustavolaux.com.br uptime"
 
-                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash | ssh felipe@gustavolaux.com.br uptime"
-
+                        sh "sudo docker run -it alpine:latest /bin/sh | ssh felipe@gustavolaux.com.br uptime"
 
                     }
                 }

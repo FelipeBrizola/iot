@@ -41,15 +41,12 @@ pipeline {
 
                     sshagent(['c5032b08-906b-4f95-8901-9c4f2119a2b3']) {
 
-                        sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime"
+                        sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz | ssh felipe@gustavolaux.com.br"
 
-                        sh "sudo docker load < my-image:$env.BUILD_ID-golden.tar.gz"
-
-                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash"
+                        sh "sudo docker run -i -t my-image:$env.BUILD_ID-golden /bin/bash | ssh felipe@gustavolaux.com.br"
 
                     }
                 }
-
             
         }
     }

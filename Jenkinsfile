@@ -33,8 +33,6 @@ pipeline {
 
                         sh "ssh -o StrictHostKeyChecking=no felipe@gustavolaux.com.br uptime" 
 
-                        sh "scp $WORKSPACE/alpine:abc-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"  
-
                         sh "ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br docker load < alpine:abc-golden.tar.gz"
 
                         sh "ssh -o StrictHostKeyChecking=no -t felipe@gustavolaux.com.br docker run -it alpine:latest /bin/sh"

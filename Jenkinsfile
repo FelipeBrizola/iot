@@ -37,9 +37,9 @@ pipeline {
 
                         sh "scp $WORKSPACE/my-image-golden.tar.gz felipe@gustavolaux.com.br:/home/felipe"  
 
-                        sh "ssh felipe@gustavolaux.com.br docker load < my-image-golden.tar.gz"
+                        sh "ssh -t felipe@gustavolaux.com.br docker load < my-image-golden.tar.gz"
 
-                        sh "ssh felipe@gustavolaux.com.br docker run -it alpine:latest /bin/sh"
+                        sh "ssh -t felipe@gustavolaux.com.br docker run -it alpine:latest /bin/sh"
 
                     }
                 }
